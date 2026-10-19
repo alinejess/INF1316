@@ -1,3 +1,4 @@
+// Aline Jéssica David Gonçalves, 2320276
 /*
  * ============================================================================
  *  app.c  —  Processo de aplicação (A1, A2, A3, ...)
@@ -28,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <signal.h>
 
 #define MAX_SYSCALLS 8   /* quantas syscalls, no máximo, cabem no plano */
 
@@ -95,6 +97,7 @@ int main(int argc, char *argv[])
             if (sc[k].pc == pc) {
                 snprintf(msg, sizeof msg, "SYSCALL %d %d %c\n", id, pc, sc[k].tipo);
                 enviar(fd, msg);
+                raise(SIGSTOP);   /* para imediatamente, como pede o enunciado */
             }
         }
     }
