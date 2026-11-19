@@ -34,7 +34,6 @@
  *   ./parte2
  * =============================================================================
  */
-
 #include <stdio.h>       /* printf, perror                                        */
 #include <stdlib.h>      /* exit, rand, srand                                     */
 #include <time.h>        /* time, clock_gettime, nanosleep                        */
