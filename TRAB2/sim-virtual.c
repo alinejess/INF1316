@@ -1,7 +1,8 @@
 /*
  * sim-virtual.c
  * INF1316 — Sistemas Operacionais — Trabalho 2 (2026.2)
- * Aline Jéssica David Gonçalves, 2320276
+ *
+ * Integrantes: Aline
  *
  * Simula paginação sob demanda para um único processo e substitui
  * páginas com LRU, NRU, FIFO ou Ótimo (Belady).
@@ -229,10 +230,15 @@ static int vitima_nru(const Quadro *quadros, int n) {
     return vitima;
 }
 
+/* Sai a página cujo próximo uso é o mais distante. Se houver empate
+ * (várias páginas que nunca mais serão usadas), prefere a limpa (M=0),
+ * o que não altera as faltas mas evita escritas desnecessárias. */
 static int vitima_otimo(const Quadro *quadros, int n) {
     int vitima = 0;
     for (int i = 1; i < n; i++) {
-        if (quadros[i].proximo_uso > quadros[vitima].proximo_uso)
+        if (quadros[i].proximo_uso > quadros[vitima].proximo_uso ||
+            (quadros[i].proximo_uso == quadros[vitima].proximo_uso &&
+             !quadros[i].M && quadros[vitima].M))
             vitima = i;
     }
     return vitima;
